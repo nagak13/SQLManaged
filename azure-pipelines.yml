@@ -10,10 +10,16 @@ pool:
   vmImage: ubuntu-default
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'KPMGAU-MGT-INN-DDDEVOPSGUILD3(2575de18-863d-44bf-a54d-629d623ff88e)'
+    subscriptionId: '2575de18-863d-44bf-a54d-629d623ff88e'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'rg-NK-DD-DEV'
+    location: 'Australia East'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/nagak13/SQLManaged/main/azuredeploy.json'
+    csmParametersFileLink: 'https://raw.githubusercontent.com/nagak13/SQLManaged/main/azuredeploy.parameters.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'SQL'
